@@ -1,0 +1,13 @@
+{
+  "name": "mosaic-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gm": "^1.25.0"
+  }
+}
