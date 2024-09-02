@@ -56,29 +56,58 @@ async function createMosaic({ urls, columns = 2, size = 200 }) {
   return mosaicImage;
 }
 
+
 export default async function handler(request, reply) {
-  try {
-    const { urls, size, columns } = request.query;
+    try {
+        const { urls, size, columns } = request.query;
 
-    if (!urls) {
-      return reply.status(400).send({ error: 'No URLs provided' });
+        if (!urls) {
+            return reply.status(400).send({ error: 'No URLs provided' });
+        }
+
+        const urlArray = urls.split(',');
+
+        if (urlArray.length === 0) {
+            return reply.status(400).send({ error: 'No URLs provided' });
+        }
+
+        const mosaicImage = await createMosaic({
+                urls: urlArray,
+                columns: 2,
+                size: size ? parseInt(size, 10) : 200,
+                columns: columns ? parseInt(columns, 10) : 2,
+        });
+
+        reply.type('image/png').send(mosaicImage);
+    } catch (err) {
+        reply.status(500).send({ error: err.message });
     }
-
-    const urlArray = urls.split(',');
-
-    if (urlArray.length === 0) {
-      return reply.status(400).send({ error: 'No URLs provided' });
-    }
-
-    const mosaicImage = await createMosaic({
-        urls: urlArray,
-        columns: 2,
-        size: size ? parseInt(size, 10) : 200,
-        columns: columns ? parseInt(columns, 10) : 2,
-    });
-
-    reply.type('image/png').send(mosaicImage);
-  } catch (err) {
-    reply.status(500).send({ error: err.message });
-  }
 }
+
+// fastify
+// export default async function handler(request, reply) {
+//   try {
+//     const { urls, size, columns } = request.query;
+
+//     if (!urls) {
+//       return reply.status(400).send({ error: 'No URLs provided' });
+//     }
+
+//     const urlArray = urls.split(',');
+
+//     if (urlArray.length === 0) {
+//       return reply.status(400).send({ error: 'No URLs provided' });
+//     }
+
+//     const mosaicImage = await createMosaic({
+//         urls: urlArray,
+//         columns: 2,
+//         size: size ? parseInt(size, 10) : 200,
+//         columns: columns ? parseInt(columns, 10) : 2,
+//     });
+
+//     reply.type('image/png').send(mosaicImage);
+//   } catch (err) {
+//     reply.status(500).send({ error: err.message });
+//   }
+// }
