@@ -57,32 +57,31 @@ async function createMosaic({ urls, columns = 2, size = 200 }) {
 }
 
 
-export default async function handler(request, reply) {
+export default async function handler(req, res) {
     try {
-        const { urls, size, columns } = request.query;
-
-        if (!urls) {
-            return reply.status(400).send({ error: 'No URLs provided' });
-        }
-
-        const urlArray = urls.split(',');
-
-        if (urlArray.length === 0) {
-            return reply.status(400).send({ error: 'No URLs provided' });
-        }
-
-        const mosaicImage = await createMosaic({
-                urls: urlArray,
-                columns: 2,
-                size: size ? parseInt(size, 10) : 200,
-                columns: columns ? parseInt(columns, 10) : 2,
-        });
-
-        reply.type('image/png').send(mosaicImage);
+      const { urls } = req.query;
+  
+      if (!urls) {
+        return res.status(400).json({ error: 'Missing or invalid URLs' });
+      }
+  
+      const urlArray = urls.split(',');
+  
+      if (urlArray.length === 0) {
+        return res.status(400).json({ error: 'No URLs provided' });
+      }
+  
+      const mosaicImage = await createMosaic(urlArray);
+  
+      res.setHeader('Content-Type', 'image/png');
+      res.status(200).send(mosaicImage);
     } catch (err) {
-        reply.status(500).send({ error: err.message });
+      console.error('Error creating mosaic:', err);
+      res.status(500).json({ error: 'Failed to create mosaic' });
     }
 }
+
+  
 
 // fastify
 // export default async function handler(request, reply) {
