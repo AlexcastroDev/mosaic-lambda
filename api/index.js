@@ -59,7 +59,7 @@ async function createMosaic({ urls, columns = 2, size = 200 }) {
 
 export default async function handler(req, res) {
     try {
-      const { urls } = req.query;
+    const { urls, size, columns } = req.query;
   
       if (!urls) {
         return res.status(400).json({ error: 'Missing or invalid URLs' });
@@ -71,7 +71,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'No URLs provided' });
       }
   
-      const mosaicImage = await createMosaic(urlArray);
+      const mosaicImage = await createMosaic({
+        urls: urlArray,
+        columns: 2,
+        size: size ? parseInt(size, 10) : 200,
+        columns: columns ? parseInt(columns, 10) : 2,
+      });
   
       res.setHeader('Content-Type', 'image/png');
       res.status(200).send(mosaicImage);
