@@ -66,9 +66,9 @@ export default async function handler(req, res) {
       }
 
       const sanitized_urls = urls.split(',').filter(Boolean)
-      const local_limit = limit || sanitized_urls.length;
-      const urlArray = sanitized_urls.slice(0, local_limit);
-    
+      const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length;
+      const urlArray = sanitized_urls.slice(0, sanitazed_limit);
+
       if (urlArray.length === 0) {
         return res.status(400).json({ error: 'No URLs provided' });
       }
