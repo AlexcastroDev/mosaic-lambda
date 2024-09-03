@@ -1,33 +1,56 @@
 import { BaseHandler } from './base.js';
 import { createMosaic } from '../lib/mosaic-builder.js';
+import { ERROR_URLS_MISSING, ERROR_INVALID_MEMBER } from '../exceptions/errors.js';
 
 export default async function handler(req, res, handler) {
     const server = new BaseHandler(req, res, handler)
-    
-    try {
     const { urls, size, columns, limit } = req.query;
-    
-    if (!urls) {
-      return server.reply(400, { error: 'Missing or invalid URLs' })
+
+    // ==============
+    // Number fields
+    // ==============
+    [size, columns, limit].forEach((key, param) => {
+      if(param && isNaN(parseInt(param))) {
+        return server.reply(422, { error: ERROR_INVALID_MEMBER, attribute: key });
+      }
+    })
+    const keys = ['size', 'columns', 'limit'];
+    const params = [size, columns, limit];
+    let error = false;
+
+    for (const [index, key] of keys.entries()) {
+      const param = params[index];
+      if (param !== undefined && isNaN(Number(param))) {
+        server.reply(422, { error: ERROR_INVALID_MEMBER, attribute: key });
+        error = true;
+        break
+      }
     }
 
-    const sanitized_urls = urls.split(',').filter(Boolean)
+    if (error) return
+
+    // ==============
+    // URLs
+    // ==============
+    const sanitized_urls = (urls || '').split(',').filter(Boolean)
     const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length;
     const urlArray = sanitized_urls.slice(0, sanitazed_limit);
-
-    if (urlArray.length === 0) {
-      return server.reply(400, { error: 'No URLs provided' })
+    if (!urlArray.length) {
+      server.reply(400, { error: ERROR_URLS_MISSING });
+      return;
     }
+    const sanitazed_size = parseInt(size, 10) || 200;
+    const sanitazed_columns = parseInt(columns, 10) || sanitazed_limit;
 
-    const mosaicImage = await createMosaic({
-      urls: urlArray,
-      columns: 2,
-      size: size ? parseInt(size, 10) : 200,
-      columns: columns ? parseInt(columns, 10) : sanitazed_limit,
-    });
+    try {
+      const mosaicImage = await createMosaic({
+        urls: urlArray,
+        size: sanitazed_size,
+        columns: sanitazed_columns,
+      });
 
-    server.type('image/png');
-    server.reply(200, mosaicImage);
+      server.type('image/png');
+      server.reply(200, mosaicImage);
   } catch (err) {
     console.error('Error creating mosaic:', err);
     server.reply(500, { error: err.message });
