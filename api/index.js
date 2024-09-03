@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing or invalid URLs' });
       }
   
-      const urlArray = urls.split(',');
+      const urlArray = urls.split(',').filter(Boolean);
   
       if (urlArray.length === 0) {
         return res.status(400).json({ error: 'No URLs provided' });
