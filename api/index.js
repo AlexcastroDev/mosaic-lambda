@@ -59,14 +59,16 @@ async function createMosaic({ urls, columns = 2, size = 200 }) {
 
 export default async function handler(req, res) {
     try {
-    const { urls, size, columns } = req.query;
-  
+      const { urls, size, columns, limit } = req.query;
+      
       if (!urls) {
         return res.status(400).json({ error: 'Missing or invalid URLs' });
       }
-  
-      const urlArray = urls.split(',').filter(Boolean);
-  
+
+      const sanitized_urls = urls.split(',').filter(Boolean)
+      const local_limit = limit || sanitized_urls.length;
+      const urlArray = sanitized_urls.slice(0, local_limit);
+    
       if (urlArray.length === 0) {
         return res.status(400).json({ error: 'No URLs provided' });
       }
