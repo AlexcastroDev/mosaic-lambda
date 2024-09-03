@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
-import lambda from './api/index.js'
+import lambda from './src/handlers/handler.js'
+import { FastifyHandler } from './src/handlers/fastify.js'
 
 const fastify = Fastify({
   logger: true
@@ -7,7 +8,7 @@ const fastify = Fastify({
 
 // Declare a route
 fastify.get('/', async function handler (request, reply) {
-    return lambda(request, reply)
+    return lambda(request, reply, FastifyHandler)
 })
 
 // Run the server!
