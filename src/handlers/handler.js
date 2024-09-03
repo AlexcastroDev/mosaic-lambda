@@ -12,14 +12,6 @@ export default async function handler(req, res, handler) {
   // ==============
   // Number fields
   // ==============
-  ;[size, columns, limit].forEach((key, param) => {
-    if (param && isNaN(parseInt(param))) {
-      return server.reply(422, {
-        error: ERROR_INVALID_MEMBER,
-        attribute: key,
-      })
-    }
-  })
   const keys = ['size', 'columns', 'limit']
   const params = [size, columns, limit]
   let error = false
