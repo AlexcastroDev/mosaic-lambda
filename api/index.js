@@ -1,6 +1,6 @@
 import { VercelHandler } from '../handlers/vercel';
-import handler from '../handlers/handler';
+import lambda from '../handlers/handler';
 
 export default async function handler(req, res) {
-  handler(req, res, VercelHandler);
+  lambda(req, res, VercelHandler);
 }
