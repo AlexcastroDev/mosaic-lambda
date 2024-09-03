@@ -1,15 +1,15 @@
 export class BaseHandler {
-    handler
+  handler
 
-    constructor(req, res, HandlerConstructor) {
-        this.handler = new HandlerConstructor(req, res)
-    }
+  constructor(req, res, HandlerConstructor) {
+    this.handler = new HandlerConstructor(req, res)
+  }
 
-    reply(status, body) {
-        this.handler.reply(status, body)
-    }
+  reply(status, body) {
+    this.handler.reply(status, body)
+  }
 
-    type(value) {
-        this.handler.setHeader(value)
-    }
+  type(value) {
+    this.handler.setHeader(value)
+  }
 }
