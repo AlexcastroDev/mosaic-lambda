@@ -4,7 +4,7 @@ export class VercelHandler {
         this.res = res;
     }
 
-    type(value) {
+    setHeader(value) {
         this.res.setHeader('Content-Type', value);
     }
 
