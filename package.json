@@ -8,12 +8,17 @@
     "prettier": "prettier --write ."
   },
   "type": "module",
+  "main": "src/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "sharp": "^0.33.5"
   },
+  "files": [
+      "src/**/*",
+      "readme.md"
+  ],
   "devDependencies": {
     "@playwright/test": "^1.46.1",
     "@types/node": "^22.5.2",

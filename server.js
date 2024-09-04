@@ -1,6 +1,5 @@
 import Fastify from 'fastify'
-import lambda from './src/handlers/handler.js'
-import { FastifyHandler } from './src/handlers/fastify.js'
+import lambda, { FastifyHandler } from './src/index.js'
 
 const fastify = Fastify({
   logger: true,

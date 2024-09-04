@@ -5,7 +5,7 @@ import {
   ERROR_INVALID_MEMBER,
 } from '../exceptions/errors.js'
 
-export default async function handler(req, res, handler) {
+export async function handler(req, res, handler) {
   const server = new BaseHandler(req, res, handler)
   const { urls, size, columns, limit } = req.query
 
