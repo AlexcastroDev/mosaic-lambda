@@ -9,6 +9,8 @@ export class FastifyHandler {
   }
 
   reply(status, body) {
+    this.res.header('Content-Disposition', 'attachment; filename=mosaic.png');
+    this.res.header('Content-Length', body.Length);
     this.res.status(status).send(body)
   }
 }
