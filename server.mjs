@@ -1,14 +1,11 @@
 import Fastify from 'fastify'
-import lambda, { FastifyHandler } from './src/index.js'
+import routes from './routes.mjs'
 
 const fastify = Fastify({
   logger: true,
 })
 
-// Declare a route
-fastify.get('/', async function handler(request, reply) {
-  return lambda(request, reply, FastifyHandler)
-})
+routes(fastify)
 
 const { ADDRESS = '0.0.0.0', PORT = '3000' } = process.env;
 

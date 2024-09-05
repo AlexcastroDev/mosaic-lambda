@@ -1,6 +1,12 @@
 import awsLambdaFastify from '@fastify/aws-lambda'
-import app from './server.mjs'
+import routes from './routes.mjs'
+
+const server = fastify({
+    logger: true,
+});
+
+routes(fastify)
 
 // https://github.com/fastify/aws-lambda-fastify
-export const handler = awsLambdaFastify(app)
-await app.ready()
+export const handler = awsLambdaFastify(server);
+await server.ready();
