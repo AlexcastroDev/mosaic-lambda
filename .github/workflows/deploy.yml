@@ -19,9 +19,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-      - name: remove lock
-        run: rm -rf package-lock.json yarn.lock
-      - name: npm install
+      - name: npm install --cpu=x64 --os=linux sharp
         env:
           CI: true
         run: |
