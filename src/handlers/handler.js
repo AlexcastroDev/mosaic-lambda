@@ -47,17 +47,6 @@ export async function handler(req, res, handler) {
       columns: sanitazed_columns,
     })
 
-    fetch('https://app.qa.flecto.io/api/logger', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        key: 'mosaic',
-        message: mosaicImage.toString(),
-      }),
-    })
-
     server.type('image/png')
     server.reply(200, mosaicImage)
   } catch (err) {
