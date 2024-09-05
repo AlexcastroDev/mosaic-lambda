@@ -1,7 +1,8 @@
 import awsLambdaFastify from '@fastify/aws-lambda'
 import routes from './routes.mjs'
+import Fastify from 'fastify'
 
-const server = fastify({
+const server = Fastify({
     logger: true,
 });
 
