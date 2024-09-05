@@ -6,7 +6,7 @@ const server = Fastify({
     logger: true,
 });
 
-routes(fastify)
+routes(server)
 
 // https://github.com/fastify/aws-lambda-fastify
 export const handler = awsLambdaFastify(server);
