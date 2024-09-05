@@ -1,8 +1,8 @@
 import sharp from 'sharp'
 
 export function extractUrls(urlString) {
-  if (!urlString || typeof urlString !== 'string') return []
   if (Array.isArray(urlString)) return urlString
+  if (!urlString || typeof urlString !== 'string') return []
 
   // Check if the string contains '?urls=' or '/?urls='
   if (urlString.includes('?urls=')) {
