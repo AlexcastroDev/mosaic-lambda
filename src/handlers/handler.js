@@ -47,6 +47,7 @@ export async function handler(req, res, handler) {
       columns: sanitazed_columns,
     })
 
+
     server.type('image/png')
     server.reply(200, mosaicImage)
   } catch (err) {
