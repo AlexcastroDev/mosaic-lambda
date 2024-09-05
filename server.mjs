@@ -17,4 +17,6 @@ try {
   process.exit(1)
 }
 
+export const logger = fastify.log
+
 export default fastify
