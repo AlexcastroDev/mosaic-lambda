@@ -1,5 +1,4 @@
 import sharp from 'sharp'
-import { logger } from '../../index.mjs'
 
 export function extractUrls(urlString) {
   if (Array.isArray(urlString)) return urlString
@@ -21,7 +20,6 @@ export function extractUrls(urlString) {
 
 async function fetchImage(url) {
   const response = await fetch(url)
-  logger.info(`Fetching image from ${url}`, response.ok)
   if (!response.ok) {
     throw new Error(`Failed to fetch image from ${url}: ${response.statusText}`)
   }
@@ -32,8 +30,6 @@ async function fetchImage(url) {
 export async function createMosaic({ urls, columns = 2, size = 200 }) {
   const imageBuffers = await Promise.all(urls.map((url) => fetchImage(url)))
   const rows = Math.ceil(imageBuffers.length / columns)
-  logger.info(`rows ${rows}, columns ${columns}`)
-  logger.info(`imageBuffers ${imageBuffers.length}`)
 
   const compositeArray = []
   let x = 0
