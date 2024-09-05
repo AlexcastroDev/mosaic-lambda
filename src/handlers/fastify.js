@@ -9,6 +9,6 @@ export class FastifyHandler {
   }
 
   reply(status, body) {
-    this.res.status(status).send(Buffer.from(body).toString('base64'))
+    this.res.status(status).send(body)
   }
 }

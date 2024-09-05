@@ -9,7 +9,9 @@ const server = Fastify({
 routes(server)
 
 // https://github.com/fastify/aws-lambda-fastify
-export const handler = awsLambdaFastify(server);
+export const handler = awsLambdaFastify(server, {
+    binaryMimeTypes: ['image/png']
+});
 export const logger = server.log
 
 await server.ready();
