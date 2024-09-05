@@ -19,14 +19,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
+      - name: remove lock
+        run: rm -rf package-lock.json yarn.lock
       - name: npm install
         env:
           CI: true
         run: |
-          npm ci 
+          npm ci
       - name: deploy
         run: |
           mv aws-lambda/index.js index.mjs
 
-          zip -r deploy.zip index.mjs server.mjs src/ node_modules package.json package-lock.json
+          zip -r deploy.zip index.mjs server.mjs src/ node_modules package.json
           aws lambda update-function-code --function-name=${{secrets.AWS_LAMBDA_NAME}} --zip-file=fileb://deploy.zip 
