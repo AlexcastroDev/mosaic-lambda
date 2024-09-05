@@ -8,6 +8,7 @@ import {
 export async function handler(req, res, handler) {
   const server = new BaseHandler(req, res, handler)
   const { urls, size, columns, limit } = req.query
+  console.log("🚀 ~ handler ~ urls:", urls)
 
   // ==============
   // Number fields
@@ -30,7 +31,7 @@ export async function handler(req, res, handler) {
   // ==============
   // URLs
   // ==============
-  const sanitized_urls = (urls || '').split(',').filter(Boolean)
+  const sanitized_urls = String(urls ?? '').split(',').filter(Boolean)
   const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length
   const urlArray = sanitized_urls.slice(0, sanitazed_limit)
   if (!urlArray.length) {
