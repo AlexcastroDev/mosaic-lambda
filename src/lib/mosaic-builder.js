@@ -1,5 +1,20 @@
 import sharp from 'sharp'
 
+export function extractUrls(urlString) {
+  // Check if the string contains '?urls=' or '/?urls='
+  if (urlString.includes('?urls=')) {
+    // Extract the query parameters after '?'
+    const queryParams = urlString.split('?')[1];
+    // Split by &urls= to handle multiple query parameters correctly
+    const urls = queryParams.split('&urls=').map(url => decodeURIComponent(url));
+    return urls;
+  } else {
+    // If no query params, split by commas to handle multiple plain URLs
+    const urls = urlString.split(',');
+    return urls.map(url => url.trim());
+  }
+}
+
 async function fetchImage(url) {
   const response = await fetch(url)
   if (!response.ok) {
