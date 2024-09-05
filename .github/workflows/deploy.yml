@@ -26,7 +26,7 @@ jobs:
           npm ci 
       - name: deploy
         run: |
-          mv aws-lambda/index.js index.js
+          mv aws-lambda/index.js index.mjs
 
-          zip -r deploy.zip index.js server.js src/
+          zip -r deploy.zip index.js server.js src/ node_modules
           aws lambda update-function-code --function-name=${{secrets.AWS_LAMBDA_NAME}} --zip-file=fileb://deploy.zip 

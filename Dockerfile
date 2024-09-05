@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 # Bundle app source
-COPY server.js .
+COPY server.mjs .
 COPY src/ ./src/
 
 EXPOSE 3000
