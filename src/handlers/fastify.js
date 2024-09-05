@@ -9,8 +9,11 @@ export class FastifyHandler {
   }
 
   reply(status, body) {
-    this.res.header('Content-Disposition', 'attachment; filename=mosaic.png');
-    this.res.header('Content-Length', body.Length);
-    this.res.status(status).send(body)
+    if(Buffer.isBuffer(body)) {
+      this.res.type('application/json')
+      this.res.status(status).send({ body: Buffer.from(body).toString('base64'), isBase64Encoded: true})
+    } else {
+      this.res.status(status).send(body)
+    }
   }
 }
