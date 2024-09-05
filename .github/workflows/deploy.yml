@@ -19,7 +19,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-      - name: npm install --cpu=x64 --os=linux sharp
+      - name: npm install --os=linux --cpu=x64 sharp
         env:
           CI: true
         run: |
