@@ -1,5 +1,5 @@
 import sharp from 'sharp'
-import { logger } from '../../server.mjs'
+import { logger } from '../../index.mjs'
 
 export function extractUrls(urlString) {
   if (Array.isArray(urlString)) return urlString

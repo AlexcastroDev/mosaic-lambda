@@ -10,4 +10,6 @@ routes(server)
 
 // https://github.com/fastify/aws-lambda-fastify
 export const handler = awsLambdaFastify(server);
+export const logger = server.log
+
 await server.ready();
