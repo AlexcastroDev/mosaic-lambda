@@ -32,7 +32,7 @@ export async function handler(req, res, handler) {
   // ==============
   
   try {
-    const sanitized_urls = extractUrls(urls ?? '').filter(Boolean)
+    const sanitized_urls = extractUrls(urls).filter(Boolean)
     const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length
     const urlArray = sanitized_urls.slice(0, sanitazed_limit)
     if (!urlArray.length) {
