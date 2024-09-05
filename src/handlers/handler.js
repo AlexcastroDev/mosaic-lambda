@@ -50,7 +50,6 @@ export async function handler(req, res, handler) {
     server.type('image/png')
     server.reply(200, mosaicImage)
   } catch (err) {
-    console.error('Error creating mosaic:', err)
-    server.reply(500, { error: err.message, query: req.query })
+    server.reply(500, { error: err.message })
   }
 }
