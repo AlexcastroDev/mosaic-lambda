@@ -10,8 +10,9 @@ export class FastifyHandler {
 
   reply(status, body) {
     if(Buffer.isBuffer(body)) {
-      this.res.type('application/json')
-      this.res.status(status).send({ body: Buffer.from(body).toString('base64'), isBase64Encoded: true})
+      this.res.type('image/png')
+      this.res.header('Content-Length', body.length)
+      this.res.status(status).send(Buffer.from(body), 'base64')
     } else {
       this.res.status(status).send(body)
     }
