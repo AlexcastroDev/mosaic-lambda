@@ -29,10 +29,16 @@ https://your-vercel-deployment-url/api/mosaic?urls=url1,url2,url3&limit=5&column
 docker compose up -d
 ```
 
-# AWS Labmda
+# AWS Lambda
 
 Set the branch you want to deploy in .github/workflows/deploy.
 
 Also, configure the environments in your repository secrets
 
 ![image](https://github.com/user-attachments/assets/bd8bfcb0-404e-48f0-87ee-bde20751a028)
+
+# Azure Functions
+
+Azure Functions is straightforward to install, and you don't need all the steps listed here. Simply check the example folder and deploy ! easy easy papito
+
+![image](https://github.com/user-attachments/assets/836eada5-2593-4620-aa22-5b6363e971e2)
