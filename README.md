@@ -28,3 +28,11 @@ https://your-vercel-deployment-url/api/mosaic?urls=url1,url2,url3&limit=5&column
 ```bash
 docker compose up -d
 ```
+
+# AWS Labmda
+
+Set the branch you want to deploy in .github/workflows/deploy.
+
+Also, configure the environments in your repository secrets
+
+![image](https://github.com/user-attachments/assets/bd8bfcb0-404e-48f0-87ee-bde20751a028)
