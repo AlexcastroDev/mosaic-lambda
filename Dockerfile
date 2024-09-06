@@ -9,9 +9,9 @@ COPY package*.json ./
 RUN npm install
 
 # Bundle app source
-COPY server.js .
+COPY *.mjs .
 COPY src/ ./src/
 
 EXPOSE 3000
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "server.mjs" ]

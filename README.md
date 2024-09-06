@@ -23,13 +23,11 @@ https://your-vercel-deployment-url/api/mosaic?urls=url1,url2,url3&limit=5&column
 
 <img src="https://mosaic-lambda.vercel.app/api?size=300&columns=2&limit=4&urls=https://github.com/user-attachments/assets/6717bbe6-1d9a-4738-85af-3b1aea5d2328,https://github.com/user-attachments/assets/c74803d1-187b-4959-8ce6-a3bfee38c073,https://github.com/user-attachments/assets/1ae482bc-c862-4643-a8dd-7f3f02599f80,https://github.com/user-attachments/assets/87014d69-6cc7-49fe-a893-4a75f9fc732d" />
 
-
 # Docker
 
 ```bash
 docker compose up -d
 ```
-
 
 # AWS Labmda
 

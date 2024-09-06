@@ -1,5 +1,5 @@
 import { BaseHandler } from './base.js'
-import { createMosaic } from '../lib/mosaic-builder.js'
+import { createMosaic, extractUrls } from '../lib/mosaic-builder.js'
 import {
   ERROR_URLS_MISSING,
   ERROR_INVALID_MEMBER,
@@ -30,17 +30,17 @@ export async function handler(req, res, handler) {
   // ==============
   // URLs
   // ==============
-  const sanitized_urls = (urls || '').split(',').filter(Boolean)
-  const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length
-  const urlArray = sanitized_urls.slice(0, sanitazed_limit)
-  if (!urlArray.length) {
-    server.reply(400, { error: ERROR_URLS_MISSING })
-    return
-  }
-  const sanitazed_size = parseInt(size, 10) || 200
-  const sanitazed_columns = parseInt(columns, 10) || sanitazed_limit
 
   try {
+    const sanitized_urls = extractUrls(urls).filter(Boolean)
+    const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length
+    const urlArray = sanitized_urls.slice(0, sanitazed_limit)
+    if (!urlArray.length) {
+      server.reply(400, { error: ERROR_URLS_MISSING })
+      return
+    }
+    const sanitazed_size = parseInt(size, 10) || 200
+    const sanitazed_columns = parseInt(columns, 10) || sanitazed_limit
     const mosaicImage = await createMosaic({
       urls: urlArray,
       size: sanitazed_size,
@@ -50,7 +50,6 @@ export async function handler(req, res, handler) {
     server.type('image/png')
     server.reply(200, mosaicImage)
   } catch (err) {
-    console.error('Error creating mosaic:', err)
     server.reply(500, { error: err.message })
   }
 }
