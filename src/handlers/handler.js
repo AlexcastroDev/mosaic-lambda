@@ -30,7 +30,7 @@ export async function handler(req, res, handler) {
   // ==============
   // URLs
   // ==============
-  
+
   try {
     const sanitized_urls = extractUrls(urls).filter(Boolean)
     const sanitazed_limit = parseInt(limit, 10) || sanitized_urls.length
@@ -46,7 +46,6 @@ export async function handler(req, res, handler) {
       size: sanitazed_size,
       columns: sanitazed_columns,
     })
-
 
     server.type('image/png')
     server.reply(200, mosaicImage)

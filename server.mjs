@@ -7,7 +7,7 @@ const fastify = Fastify({
 
 routes(fastify)
 
-const { ADDRESS = '0.0.0.0', PORT = '3000' } = process.env;
+const { ADDRESS = '0.0.0.0', PORT = '3000' } = process.env
 
 // Run the server!
 try {

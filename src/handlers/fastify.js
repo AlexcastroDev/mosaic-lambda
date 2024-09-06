@@ -9,7 +9,7 @@ export class FastifyHandler {
   }
 
   reply(status, body) {
-    if(Buffer.isBuffer(body)) {
+    if (Buffer.isBuffer(body)) {
       this.res.type('image/png')
       this.res.header('Content-Length', body.length)
       this.res.status(status).send(Buffer.from(body), 'base64')
